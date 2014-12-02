@@ -9,7 +9,7 @@ var Renderable = function(options) {
   this.y = options.y
   this.image = createImage(options.image)
   this.render = function() {
-    ctx.drawImage(this.image, this.x, this.y);
+    Game.ctx.drawImage(this.image, this.x, this.y);
   }
 }
 
@@ -27,16 +27,16 @@ var HeroShip = function(options) {
 }
 
 HeroShip.prototype.move = function() {
-  if (38 in keysDown) { // Player holding up
+  if (38 in Game.keysDown) { // Player holding up
     this.y -= this.speed;
   }
-  if (40 in keysDown) { // Player holding down
+  if (40 in Game.keysDown) { // Player holding down
     this.y += this.speed;
   }
-  if (37 in keysDown) { // Player holding left
+  if (37 in Game.keysDown) { // Player holding left
     this.x -= this.speed;
   }
-  if (39 in keysDown) { // Player holding right
+  if (39 in Game.keysDown) { // Player holding right
     this.x += this.speed;
   }
 }
