@@ -28,16 +28,32 @@ var HeroShip = function(options) {
 
 HeroShip.prototype.move = function() {
   if (38 in Game.keysDown) { // Player holding up
-    this.y -= this.speed;
+    if (this.y > (-20)){
+      this.y -= this.speed;
+    } else {
+      this.y = 718
+    }
   }
   if (40 in Game.keysDown) { // Player holding down
-    this.y += this.speed;
+    if (this.y < 728){
+      this.y += this.speed;
+    } else {
+      this.y = 0
+    }
   }
   if (37 in Game.keysDown) { // Player holding left
-    this.x -= this.speed;
+    if (this.x > (-20)){
+      this.x -= this.speed;
+    } else {
+      this.x = 920
+    }
   }
   if (39 in Game.keysDown) { // Player holding right
-    this.x += this.speed;
+    if (this.x < (940)){
+      this.x += this.speed;
+    } else {
+      this.x = 0
+    }
   }
 }
 
