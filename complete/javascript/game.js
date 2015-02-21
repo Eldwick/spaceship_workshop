@@ -17,6 +17,7 @@ $(document).ready(function() {
     
     renderBG()
 
+    moveBullets() //shooting bullets
     moveHero() //moved via keyboard input
     moveEnemies() //enemies chase hero, also checks if enemies have caught hero
     Game.coin.render()
@@ -66,7 +67,16 @@ $(document).ready(function() {
     var heroShip = Game.heroShip;
 
     heroShip.move();
+    heroShip.shoot();
     heroShip.render()
+  }
+
+  function moveBullets(){
+    var bullets = Game.bullets;
+    for (var i = 0, bulletsLength = bullets.length; i < bulletsLength; i++) {
+      bullets[i].render();
+      bullets[i].move();
+    }
   }
 
   function checkCoinCollect() {
@@ -112,10 +122,10 @@ $(document).ready(function() {
   function checkEnemyTouch(enemy) {
     var heroShip = Game.heroShip;
     if (
-        heroShip.x <= (enemy.x + 32)
-        && enemy.x <= (heroShip.x + 32)
-        && heroShip.y <= (enemy.y + 32)
-        && enemy.y <= (heroShip.y + 32)
+        heroShip.x <= (enemy.x + 24)
+        && enemy.x <= (heroShip.x + 24)
+        && heroShip.y <= (enemy.y + 24)
+        && enemy.y <= (heroShip.y + 24)
       ){
       Game.ctx.font = "60px Helvetica";
       Game.ctx.fillText("GAME OVER", 275, 300);

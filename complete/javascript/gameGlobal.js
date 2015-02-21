@@ -24,8 +24,8 @@ var Game = (function() {
         y: 400,
         image:"images/coin.png"
       }),
+      bullets = [],
       spaceImg = createImage("images/spaceBG.png");
-
   canvas.width = 912;
   canvas.height = 718;
 
@@ -38,6 +38,7 @@ var Game = (function() {
     heroShip: heroShip,
     keysDown: {},
     over: false,
-    spaceImg: spaceImg
+    spaceImg: spaceImg,
+    bullets : bullets
   }
 }())

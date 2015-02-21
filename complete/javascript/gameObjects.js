@@ -12,7 +12,6 @@ var Renderable = function(options) {
     Game.ctx.drawImage(this.image, this.x, this.y);
   }
 }
-
 var Coin = function(options) {
   Renderable.call(this, options)
 }
@@ -22,9 +21,35 @@ var Ship = function(options) {
   this.speed = options.speed
 }
 
+var Bullet = function(options) {
+  Ship.call(this, options)
+}  
+
+Bullet.prototype.move = function() {
+  this.y -= this.speed
+}
+
+
 var HeroShip = function(options) {
   Ship.call(this, options);
+  this.shooting = false;
 }
+
+HeroShip.prototype.shoot = function() {
+  if (32 in Game.keysDown && !this.shooting) {//Spacebar shoots bullet!
+    Game.bullets.push(new Bullet({
+        x : this.x + 11,
+        y : this.y,
+        speed : this.speed + 3,
+        image : "images/bullet.png"
+    }))
+    this.shooting = true;
+    var self = this
+    setTimeout(function(){
+      self.shooting = false;
+    }, 250);
+  }
+} 
 
 HeroShip.prototype.move = function() {
   if (38 in Game.keysDown) { // Player holding up
