@@ -17,9 +17,10 @@ $(document).ready(function() {
     
     renderBG()
 
-    moveBullets() //shooting bullets
     moveHero() //moved via keyboard input
     moveEnemies() //enemies chase hero, also checks if enemies have caught hero
+    moveBullets() //shooting bullets
+
     Game.coin.render()
 
     checkCoinCollect()
@@ -72,11 +73,42 @@ $(document).ready(function() {
   }
 
   function moveBullets(){
-    var bullets = Game.bullets;
+    var bullets = Game.bullets,
+        tempBullets = [], 
+        bullet,
+        isHit;
     for (var i = 0, bulletsLength = bullets.length; i < bulletsLength; i++) {
-      bullets[i].render();
-      bullets[i].move();
+      bullet = bullets[i];
+      bullet.render();
+      bullet.move();
+      isHit = checkBulletHit(bullet)
+      if (!(bullet.y <= -20) && !isHit) {
+        tempBullets.push(bullet)
+      }
     }
+    Game.bullets = tempBullets
+  }
+
+  function checkBulletHit(bullet){
+    var enemy, 
+        check = false,
+        tempEnemies = [];
+    for( var i = 0, enemiesLength = Game.enemies.length; i < enemiesLength; i++){
+      enemy = Game.enemies[i];
+      if (!(
+        bullet.x <= (enemy.x + 24)
+        && enemy.x <= (bullet.x + 11)
+        && bullet.y <= (enemy.y + 32)
+        && enemy.y <= (bullet.y + 3)
+      )) {
+        tempEnemies.push(enemy);
+      }
+      else {
+        check = true;
+      }
+    }
+    Game.enemies = tempEnemies
+    return check
   }
 
   function checkCoinCollect() {
@@ -119,6 +151,22 @@ $(document).ready(function() {
   }
 
   //Used in moveEnemies() inside enimies array itteration
+  function checkEnemyTouch(enemy) {
+    var heroShip = Game.heroShip;
+    if (
+        heroShip.x <= (enemy.x + 24)
+        && enemy.x <= (heroShip.x + 24)
+        && heroShip.y <= (enemy.y + 24)
+        && enemy.y <= (heroShip.y + 24)
+      ){
+      Game.ctx.font = "60px Helvetica";
+      Game.ctx.fillText("GAME OVER", 275, 300);
+      Game.ctx.fillText("Score: " + Game.coinsCollected, 275, 380);
+      Game.over = true
+    }
+  }
+
+  //checking for direct hit of bullet
   function checkEnemyTouch(enemy) {
     var heroShip = Game.heroShip;
     if (
