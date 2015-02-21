@@ -1,26 +1,26 @@
+
 var canvas = document.getElementById("testCanvas"),
     ctx = canvas.getContext("2d");
 
 // //Create an image that can be drawn on a canvas
 var heroShip = new Image();
 heroShip.src = "images/heroShip.png";
-ctx.drawImage(heroShip, 0, 0);
 
 ////Move Spaceship horizonally with setInterval
 // var x = 0
 // setInterval(function(){
 //   ctx.drawImage(heroShip, x, 0);
-//   x += 2
-// }, 50)
+//   x += 1
+// }, 17)
 
 //// Move Spaceship horizonally with requestAnimationFrame
-// var x = 0
+// var x2 = 0
 // function update(){
 //   ctx.fillStyle = "rgb(255,255,255)";  
 //   ctx.fillRect(0, 0, 300, 255);
 
-//   ctx.drawImage(heroShip, x, 0);
-//   x += 1
+//   ctx.drawImage(heroShip, x2, 15);
+//   x2 += 1
 //   requestAnimationFrame(update)
 // }
 // update()
