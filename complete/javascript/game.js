@@ -139,15 +139,9 @@ $(document).ready(function() {
   function newRandomEnemy() {
     var options = new randomCoordinatesObj()
     options.image = "images/enemyShip.png"
-    options.speed = 2
+    options.speed = 3
     options.hero = Game.heroShip
-    return new EnemyShip({
-      x: randomCoordinate("x"), 
-      y: randomCoordinate("y"),
-      image:"images/enemyShip.png", 
-      speed: 2, 
-      hero: Game.heroShip
-    })
+    return new EnemyShip(options)
   }
 
   //Used in moveEnemies() inside enimies array itteration
@@ -192,15 +186,27 @@ $(document).ready(function() {
 
   //Functions used to create random spawn point for new coin and new enemy
   function randomCoordinatesObj() {
-    this.x = randomCoordinate("x");
-    this.y = randomCoordinate("y");
+    this.x = randomXCoordinate();
+    this.y = randomYCoordinate();
   }
 
-  function randomCoordinate(type) {
-    if (type == "x"){
-      return 32 + (Math.random() * (Game.canvas.width - 64))
-    } else {
-      return 32 + (Math.random() * (Game.canvas.height - 64))
-    }
+  function randomXCoordinate() {
+    var coordinate;
+    coordinate = 32 + (Math.random() * (Game.canvas.width - 64))
+    while ((Game.heroShip.x - 32 < coordinate) && (Game.heroShip.x + 64 > coordinate)) 
+    {
+      coordinate = 32 + (Math.random() * (Game.canvas.width - 64))
+    } 
+    return coordinate
+  }
+
+    function randomYCoordinate() {
+    var coordinate;
+    coordinate = 32 + (Math.random() * (Game.canvas.height - 64))
+    while ((Game.heroShip.y - 32 < coordinate) && (Game.heroShip.y + 64 > coordinate)) 
+    {
+      coordinate = 32 + (Math.random() * (Game.canvas.height - 64))
+    } 
+    return coordinate
   }
 })
